@@ -1,0 +1,10 @@
+export XDG_CONFIG_HOME=$HOME/.config
+VIM="nvim"
+
+export PATH=$HOME/.local/bin:/usr/local/bin:/usr/bin:$PATH
+export KOMOREBI_CONFIG_HOME="$HOME/.config/komorebi/"
+export DISPLAY=${DISPLAY:-$(grep -Po '(?<=nameserver ).*' /etc/resolv.conf):0}
+export XDG_BIN_HOME=$HOME/.local/bin
+export NVM_DIR="$HOME/.nvm"
+export DOTFILES=$HOME/.dotfiles
+export GIT_EDITOR=$VIM

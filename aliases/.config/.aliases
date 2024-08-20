@@ -1,0 +1,131 @@
+source ~/.variables
+alias mnt='cd /mnt/c/Users/nuq686/'
+alias alias_config='nvim $HOME/.aliases'
+
+alias pbcopy='xsel --input --clipboard'
+alias pbpaste='xsel --output --clipboard'
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias 3..='cd ../../..'
+alias cd_repos='cd $repos'
+
+alias lg='lazygit'
+alias pubip='curl ifconfig.me | pbcopy'
+
+alias docker='sudo docker'
+# cd() {
+#     builtin cd "$@" && ls
+# }
+
+alias pv='explorer.exe .'
+alias mc='mc -b'
+alias bwj='bw get password jula | clip.exe'
+
+alias rm='rm'
+alias cp='cp -i'
+alias mv='mv -i'
+alias ff='find . -type f -name'
+alias grep='grep --color'
+alias zshrc='${=EDITOR} ~/.zshrc'
+
+alias h='history'
+alias hgrep='fc -El 0 | grep'
+
+#alias ls='ls --clor=auto'
+#alias l='ls -l'
+#alias la='ls -a'
+#alias lt='ls --tree'
+#alias lsla='ls -la'
+#alias lm='ls -ltrca'
+#alias lf='ls -d */'
+alias ezaa='eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions'
+alias less='less -M -N -i'
+
+#alias devenv='"C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\devenv.exe"'
+
+#alias run_all='devenv //run $cisservicesln &  devenv //run $admintoolsln &  vim_at'
+
+alias start_at='start $admintool.sln'
+alias start_cs='start $cisservice.sln'
+alias start_all='start_at && start_cs && vim_at'
+alias sln='start *.sln'
+
+alias vimf='nvim $(fzf)'
+alias vim_config='cd ~/.config/nvim/ && vim .'
+alias .bashrc='vim $ZSH_CUSTOM/alias.zsh'
+alias sourcea='source $alias'
+
+alias gs='git status'
+alias gb='git branch'
+alias gd='git diff'
+alias gc='git checkout'
+alias gr1='git reset --soft HEAD^'
+alias vgit='vim -c ":G"'
+
+alias code_at='code $at' 
+
+alias cl='clear'
+
+#alias stf='fd -t f .sln$ $repos | start $(fzf --query='.sln\$')'
+alias stf='fd -t f .sln$ $repos | fzf | xargs -r start'
+alias cdf='cd "$(dirname "$(fzf)")"'
+alias batf='bat "$(fzf)"'
+alias cdrf='cd "$(dirname "$(fd -d 2 -t f .sln$ $HOME/work/repos/ | fzf)")"'
+alias killf='ps -ef | fzf --multi --preview "" | awk "{print \$2}" | xargs -r kill'
+alias clog='less $(fzf --query='current.log\$')'
+
+local sptdevice="--device SE-CND1419FXL"
+alias spt="spt.exe"
+alias sptn="spt playback --next $sptdevice"
+alias sptp="spt playback --previous $sptdevice"
+alias sptt="spt playback --toggle $sptdevice"
+alias spts="spt playback --status $sptdevice"
+alias sptl="spt pb --like"
+alias sptv="spt pb -v"
+alias sptj="spt play --name "JapMUS" --playlist --random $sptdevice"
+
+alias shutdown5='shutdown -s -t 05'
+
+alias winpath='winpath.sh'
+alias weather='curl http://wttr.in/karlstad'
+alias week='echo "week $(date +%W)"'
+
+# alias nswag='start $nswag'
+alias ssms='start $ssms'
+alias linq='open $linqpad'
+alias spotify='start $spotify'
+alias email='start $outlook'
+alias notepad='start $notepad'
+alias keepass='start $keepass'
+alias steam='start $steam'
+
+alias rm_pub='rm *.json *.config'
+
+alias cleanup='jb cleanupcode --profile="Built-in: Reformat & Apply Syntax Style" *.sln'
+
+alias pubtest='pubdeploy Test'
+alias pubprod='pubdeploy Prod'
+alias pubc='pubdeploy'
+
+function cversion(){
+    local foundAssembly
+    foundAssembly=$(grep -rl 'typeof(Program).Assembly.GetName().Version.ToString()')
+    
+    local foundVersion
+    foundVersion=$(grep -rl 'Version = {version}')
+
+    echo "Found Assembly: $foundAssembly"
+    echo "Found Version: $foundVersion"
+
+    sed -i 's/typeof(Program).Assembly.GetName().Version.ToString()/&.Substring(0,5)/g' $foundAssembly
+    sed -i 's/Version = {version}/&  /g' $foundVersion
+}
+
+alias cversion='cversion'
+
+#PROMPT_COMMAND='history -a'
+#HISTTIMEFORMAT='%F %T '
+
+#stty -ixon
+alias nbn='nb run nvim .'

@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+#
+
+TIMERSTART=$(date +%H:%M:%S)
+{
+    echo "Alarm in $1 minutes."
+    sleep $1m
+
+    URI=$(spt.exe playback --share-track)
+
+    spt.exe play --track --name 'trumpet military wake up' --device SE-CND1419FXL > /dev/null 2>&1
+
+    if [ ! -z "$2" ]
+    then
+        echo "Alarm for $2."
+    fi
+
+    echo "Alarm started at $TIMERSTART"
+    echo "Alarm ended at $(date +%H:%M:%S)"
+
+    sleep 5.5s
+
+    SONG=${URI##*/}
+
+    spt.exe play --track --uri "spotify:track:$SONG" > /dev/null 2>&1
+
+} &
+
+exit 0

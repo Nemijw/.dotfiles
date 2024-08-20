@@ -1,0 +1,9 @@
+echo "hello" "dada"
+    !! will give all
+echo "hello" "dada"
+    !* will give all arguments
+"hello" "dada"
+    !$ or !_ will give last argument
+"dada"
+    !:0-9 will give each word
+echo(0) "hello"(1) "dada"(2)

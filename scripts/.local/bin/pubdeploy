@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+deploy()
+{
+    local release=$@
+    local path
+    path=$(fd -I -t f "(FolderProfile$@|FolderPublish$@)" --exclude '*.user')
+
+    echo "Will use PublishProfile : $path"
+    dotnet publish -c Release -p:PublishProfile="$path"
+}
+
+deploy $@

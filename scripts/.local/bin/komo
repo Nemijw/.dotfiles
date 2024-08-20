@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+#
+komo="komorebic.exe"
+tasklist.exe /v /fi "IMAGENAME eq komorebi.exe" | grep -qF "komorebi.exe"
+
+if [ $? -eq 0 ]; then
+    # $komo stop --whkd
+    $komo stop
+else
+    # $komo start --whkd
+    if [ -n "$@" ] && [ "$@" == 'h' ]; then
+        $komo start -c 'C:\Users\nuq686\komorebih.json' --ahk
+    else
+        $komo start --ahk
+    fi
+fi
+
+# KOMO_CONFIG_HOME="$HOME/.config/komorebi"
+# autohotkey="autohotkey.exe"
+#
+# tasklist.exe /v /fi "IMAGENAME eq $autohotkey" | grep -qF "$autohotkey"
+#
+# if [ $? -eq 0 ]; then
+#     Taskkill.exe /IM "$autohotkey" /F
+# else
+#     $autohotkey $KOMO_CONFIG_HOME/komorebi.ahk 2>/dev/null &
+#     # $autohotkey $KOMO_CONFIG_HOME/komorebi_workaround.ahk 2>/dev/null &
+# fi

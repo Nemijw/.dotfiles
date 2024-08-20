@@ -1,0 +1,72 @@
+nvim
+	curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+	chmod u+x nvim.appimage
+	sudo mv nvim.appimage /usr/local/bin/nvim
+	
+fzf - for telescope need cmake make clang
+	wget http://www.cmake.org/files/v2.8/cmake-2.8.3.tar.gz
+    tar xzf cmake-2.8.3.tar.gz
+    cd cmake-2.8.3
+	./configure --help
+	./configure --prefix=/opt/cmake
+	make
+	sudo make install
+	/opt/cmake/bin/cmake -version
+
+	sudo apt-get install make
+	
+	sudo apt install clang 
+
+rg
+	 curl -LO https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb
+		sudo dpkg -i ripgrep_13.0.0_amd64.deb
+curl
+
+sudo apt install nodejs
+sudo apt install unzip
+
+sudo apt install fd-find
+	ln -s $(which fdfind) ~/.local/bin/fd
+
+
+
+
+
+--dotnet
+	sudo apt-get update &&   sudo apt-get install -y dotnet-sdk-8.0
+	sudo apt install zlib1g
+		dotnet tool install --global dotnet-outdated-tool
+		dotnet tool install --global jetbrains.resharper.globaltools
+		dotnet tool install --global dotnet-ef
+		dotnet tool install --global nswag.consolecore
+		dotnet tool install --global rnwood.smtp4dev
+		
+--go
+	sudo apt install golang-go
+	
+	
+	https://github.com/fboender/multi-git-status
+	fzf-git.sh https://github.com/junegunn/fzf-git.sh
+	delta eza thefuck
+	cargo install tlrc
+	
+	
+	
+	
+	
+	TMUX!!!
+	
+	
+	
+	
+	
+	
+	
+	
+	"WSL": {
+      "commandName": "WSL2",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "development"
+      },
+      "distributionName": ""
+    }
