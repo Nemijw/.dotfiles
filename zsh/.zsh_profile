@@ -8,3 +8,9 @@ export XDG_BIN_HOME=$HOME/.local/bin
 export NVM_DIR="$HOME/.nvm"
 export DOTFILES=$HOME/.dotfiles
 export GIT_EDITOR=$VIM
+export ATAC_KEY_BINDINGS="$XDG_CONFIG_HOME/atac/vim_key_bindings.toml"
+
+mkcd() {
+    mkdir -p "${1}"
+    cd "${1}"
+}

@@ -3,8 +3,8 @@
 {
 
   home = {
-    username = "ubuntu";
-    homeDirectory = "/home/ubuntu";
+    username = "{$USER}";
+    homeDirectory = "/home/{$USER}";
 
     # This value determines the Home Manager release that your configuration is
     # compatible with. This helps avoid breakage when a new Home Manager release
@@ -21,13 +21,14 @@
       # # Adds the 'hello' command to your environment. It prints a friendly
       # # "Hello, world!" when run.
         neovim
+        atac
         firefox
-	less
-	git
+        sshs
+	    less
         xsel
         cargo
-	jq
-	htop-vim
+	    jq
+	    htop-vim
         fzf
         zsh 
         zsh-fzf-tab

@@ -14,7 +14,7 @@ return {
 			require("mason").setup()
 			require("mason-lspconfig").setup({
 				ensure_installed = {
-					"tsserver",
+					"ts_ls",
 					"lua_ls",
 					"eslint",
 					"omnisharp",
@@ -131,8 +131,9 @@ return {
 					},
 				},
 			})
-			lspconfig.tsserver.setup({})
+			lspconfig.ts_ls.setup({})
 			lspconfig.marksman.setup({})
+			lspconfig.gopls.setup({})
 			lspconfig.eslint.setup({
 				--- ...
 				on_attach = function(client, bufnr)

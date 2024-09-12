@@ -1,6 +1,5 @@
-source ~/.variables
 alias mnt='cd /mnt/c/Users/nuq686/'
-alias alias_config='nvim $HOME/.aliases'
+alias alias_config='nvim $HOME/.config/.aliases'
 
 alias pbcopy='xsel --input --clipboard'
 alias pbpaste='xsel --output --clipboard'

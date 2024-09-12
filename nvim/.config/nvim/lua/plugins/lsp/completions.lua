@@ -4,7 +4,7 @@ return {
 		dependencies = {
 			"rafamadriz/friendly-snippets",
 			{ "L3MON4D3/LuaSnip", build = "make install_jsregexp" },
-			"windwp/nvim-autopairs",
+			-- "windwp/nvim-autopairs",
 			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-cmdline",
@@ -12,33 +12,33 @@ return {
 			"hrsh7th/cmp-buffer",
 		},
 		config = function()
-			require("nvim-autopairs").setup()
+			-- require("nvim-autopairs").setup()
 			--cmp
-			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-			local handlers = require("nvim-autopairs.completion.handlers")
+			-- local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+			-- local handlers = require("nvim-autopairs.completion.handlers")
 
 			local cmp = require("cmp")
 
-			cmp.event:on(
-				"confirm_done",
-				cmp_autopairs.on_confirm_done({
-					filetypes = {
-						-- "*" is a alias to all filetypes
-						["*"] = {
-							["("] = {
-								kind = {
-									cmp.lsp.CompletionItemKind.Function,
-									cmp.lsp.CompletionItemKind.Method,
-									cmp.lsp.CompletionItemKind.Constant,
-								},
-								handler = handlers["*"],
-							},
-						},
-						-- Disable for tex
-						tex = false,
-					},
-				})
-			)
+			-- cmp.event:on(
+			-- 	"confirm_done",
+			-- 	cmp_autopairs.on_confirm_done({
+			-- 		filetypes = {
+			-- 			-- "*" is a alias to all filetypes
+			-- 			["*"] = {
+			-- 				["("] = {
+			-- 					kind = {
+			-- 						cmp.lsp.CompletionItemKind.Function,
+			-- 						cmp.lsp.CompletionItemKind.Method,
+			-- 						cmp.lsp.CompletionItemKind.Constant,
+			-- 					},
+			-- 					handler = handlers["*"],
+			-- 				},
+			-- 			},
+			-- 			-- Disable for tex
+			-- 			tex = false,
+			-- 		},
+			-- 	})
+			-- )
 
 			require("luasnip.loaders.from_vscode").lazy_load()
 			require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/lua/nemi/snippets.lua" })
@@ -60,7 +60,7 @@ return {
 				sources = {
 					{ name = "path" },
 					{ name = "nvim_lsp" },
-					{ name = "buffer", keyword_length = 3 },
+					{ name = "buffer",  keyword_length = 3 },
 					{ name = "luasnip", keyword_length = 2 },
 				},
 				-- formatting = lsp_zero.cmp_format(),
@@ -94,6 +94,14 @@ return {
 							fallback()
 						end
 					end, { "i", "s" }),
+				},
+			})
+
+			--Setup vim-dadbod
+			cmp.setup.filetype({ "sql" }, {
+				sources = {
+					{ name = "vim-dadbod-completion" },
+					{ name = "buffer" },
 				},
 			})
 
