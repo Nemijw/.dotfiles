@@ -24,7 +24,7 @@ return {
 			desc = "Symbols (Trouble)",
 		},
 		{
-			"<leader>vrr",
+			"<leader>vtr",
 			"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
 			desc = "LSP Definitions / references / ... (Trouble)",
 		},
@@ -60,20 +60,20 @@ return {
 		-- vim.keymap.set("n", "<leader>xl", function()
 		-- 	require("trouble").open("loclist")
 		-- end),
-		-- vim.keymap.set("n", "<leader>vrr", function()
-		-- 	require("trouble").open("lsp_references")
-		-- end),
+		vim.keymap.set("n", "<leader>vrr", function()
+			require("trouble").open("lsp_references")
+		end),
 		vim.keymap.set("n", "<C-k>", function()
 			require("trouble").next({ skip_groups = true, jump = true })
-		end),
+		end, { desc = "trouble.next" }),
 		vim.keymap.set("n", "<C-j>", function()
 			require("trouble").prev({ skip_groups = true, jump = true })
-		end),
+		end, { desc = "trouble.prev" }),
 		vim.keymap.set("n", "<C-h>", function()
 			require("trouble").first({ skip_groups = true, jump = true })
-		end),
+		end, { desc = "trouble.first" }),
 		vim.keymap.set("n", "<C-l>", function()
 			require("trouble").last({ skip_groups = true, jump = true })
-		end),
+		end, { desc = "trouble.last" }),
 	},
 }

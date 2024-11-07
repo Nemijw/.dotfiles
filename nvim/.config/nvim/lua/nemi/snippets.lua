@@ -1,5 +1,3 @@
-local lsnip = require("luasnip").snippet
-
 local ls = require("luasnip")
 local s = ls.snippet
 local t = ls.text_node
@@ -10,24 +8,20 @@ local fmt = require("luasnip.extras.fmt").fmt
 
 local csharp_tools = require("nemi.csharp-tools")
 
--- Place this in ${HOME}/.config/nvim/LuaSnip/all.lua
-return {
-	-- A snippet that expands the trigger "hi" into the string "Hello, world!".
-	s({ trig = "cw" }, { t("console.log('"), i(1, "logValue"), t("',"), rep(1), t(");") }),
-
+-- Define your snippets
+local csSnippet = {
 	s(
 		{ trig = "namespace", descr = "Create folder-based namespace and class" },
 		fmt(
 			[[
-        namespace {}
-        {{
-            {} {} {}
+            namespace {}
             {{
-                {}
+                {} {} {}
+                {{
+                    {}
+                }}
             }}
-        }}
-
-        ]],
+            ]],
 			{
 				f(csharp_tools.get_namespace),
 				c(1, { t("public"), t("internal") }),
@@ -37,6 +31,20 @@ return {
 			}
 		)
 	),
-	-- To return multiple snippets, use one `return` statement per snippet file
-	-- and return a table of Lua snippets.
 }
+ls.add_snippets("cs", csSnippet)
+
+local jsSnippet = {
+	s({ trig = "cw" }, { t("console.log('"), i(1, "logValue"), t("',"), i(1), t(");") }),
+}
+ls.add_snippets("js", jsSnippet)
+
+local mdSnippet = {
+	s("todo", {
+		t("<!-- TODO: "),
+		i(1),
+		t(" -->"),
+	}),
+}
+ls.add_snippets("md", mdSnippet)
+ls.add_snippets("pandoc", mdSnippet)

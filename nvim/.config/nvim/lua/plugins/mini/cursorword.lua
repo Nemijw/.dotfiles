@@ -2,6 +2,8 @@ return {
 	{
 		"echasnovski/mini.cursorword",
 		version = false,
-		config = true,
+		config = function()
+			require("mini.sessions").setup()
+		end,
 	},
 }

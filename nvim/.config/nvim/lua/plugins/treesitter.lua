@@ -13,7 +13,8 @@ return {
 				-- A list of parser names, or "all" (the five listed parsers should always be installed)
 				ensure_installed = {
 					"bash",
-					-- "markdown_inline",
+					"markdown",
+					"markdown_inline",
 					"c_sharp",
 					"css",
 					"scss",
@@ -23,6 +24,7 @@ return {
 					"c",
 					"lua",
 					"vim",
+					"dockerfile",
 					"vimdoc",
 					"query",
 					"regex",
@@ -48,7 +50,10 @@ return {
 					-- Using this option may slow down your editor, and you may see some duplicate highlights.                                                                                        -- Instead of true it can also be a list of languages
 					additional_vim_regex_highlighting = false,
 				},
-
+				-- context_commentstring = {
+				-- 	enable = true,
+				-- 	enable_autocmd = false,
+				-- },
 				autotag = {
 					enable = true,
 				},
@@ -56,9 +61,9 @@ return {
 				incremental_selection = {
 					enable = true,
 					keymaps = {
-						init_selection = "<c-x>",
+						init_selection = "<leader-m>",
 						node_incremental = "<c-m>",
-						scope_incremental = "<c-s>",
+						scope_incremental = "<leader-n>",
 						node_decremental = "<c-n>",
 					},
 				},

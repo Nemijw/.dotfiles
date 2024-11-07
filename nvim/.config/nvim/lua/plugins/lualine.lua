@@ -18,12 +18,16 @@ return {
 				end
 			end
 
+			local function buffer_count()
+				return tostring(#vim.fn.getbufinfo({ buflisted = 1 }))
+			end
+
 			require("lualine").setup({
 				options = {
 					theme = "tokyonight",
 				},
 				sections = {
-					lualine_b = { "filename", { "diff", source = diff_source } },
+					lualine_b = { { buffer_count }, { "filename", path = 4 }, { "diff", source = diff_source } },
 					lualine_c = {
 						{
 							"diagnostic-message", --- If you want to custoimze the colors
@@ -48,9 +52,9 @@ return {
 							cond = require("noice").api.statusline.mode.has,
 							color = { fg = "#ff9e64" },
 						},
-						{ "windows", mode = 1 },
 					},
-					lualine_y = { "tabs", { "b:gitsigns_head", icon = "" }, "progress" },
+					-- lualine_y = { "tabs", { "b:gitsigns_head", icon = "" }, "progress" },
+					lualine_y = { "selectioncount", "searchcount", "progress" },
 					lualine_z = { "location" },
 				},
 			})

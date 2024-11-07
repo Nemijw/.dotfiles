@@ -55,43 +55,43 @@ return {
 					-- Buffer local mappings.
 					-- See `:help vim.lsp.*` for documentation on any of the below functions
 					local opts = { buffer = ev.buf }
-					-- local function filter(arr, fn)
-					-- 	if type(arr) ~= "table" then
-					-- 		return arr
-					-- 	end
-					--
-					-- 	local filtered = {}
-					-- 	for k, v in pairs(arr) do
-					-- 		if fn(v, k, arr) then
-					-- 			table.insert(filtered, v)
-					-- 		end
-					-- 	end
-					--
-					-- 	return filtered
-					-- end
-					--
-					-- local function filterReactDTS(value)
-					-- 	return string.match(value.filename, "index.d.ts") == nil
-					-- end
-					--
-					-- local function on_list(options)
-					-- 	local items = options.items
-					-- 	if #items > 1 then
-					-- 		items = filter(items, filterReactDTS)
-					-- 	end
-					-- 	vim.fn.setqflist({}, " ", { title = options.title, items = items, context = options.context })
-					-- 	vim.api.nvim_command("cfirst") -- or maybe you want 'copen' instead of 'cfirst'
-					-- end
+					local function filter(arr, fn)
+						if type(arr) ~= "table" then
+							return arr
+						end
+
+						local filtered = {}
+						for k, v in pairs(arr) do
+							if fn(v, k, arr) then
+								table.insert(filtered, v)
+							end
+						end
+
+						return filtered
+					end
+
+					local function filterReactDTS(value)
+						return string.match(value.filename, "index.d.ts") == nil
+					end
+
+					local function on_list(options)
+						local items = options.items
+						if #items > 1 then
+							items = filter(items, filterReactDTS)
+						end
+						vim.fn.setqflist({}, " ", { title = options.title, items = items, context = options.context })
+						vim.api.nvim_command("cfirst") -- or maybe you want 'copen' instead of 'cfirst'
+					end
 
 					vim.keymap.set("n", "<F4>", function()
 						vim.lsp.buf.code_action()
 					end, opts)
-					-- vim.keymap.set("n", "gd", function()
-					-- 	vim.lsp.buf.definition({ on_list = on_list })
-					-- end, opts)
 					vim.keymap.set("n", "gd", function()
-						vim.lsp.buf.definition()
+						vim.lsp.buf.definition({ on_list = on_list })
 					end, opts)
+					-- vim.keymap.set("n", "gd", function()
+					-- 	vim.lsp.buf.definition()
+					-- end, opts)
 					vim.keymap.set("n", "K", function()
 						vim.lsp.buf.hover()
 					end, opts)
@@ -134,6 +134,29 @@ return {
 			lspconfig.ts_ls.setup({})
 			lspconfig.marksman.setup({})
 			lspconfig.gopls.setup({})
+			lspconfig.yamlls.setup({
+				capabilities = capabilities,
+				settings = {
+					yaml = {
+						validate = true,
+						schemaStore = {
+							enable = false,
+							url = "",
+						},
+						schemas = {
+							kubernetes = "k8s-*.yaml",
+							["http://json.schemastore.org/github-workflow"] = ".github/workflows/*",
+							["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
+							["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/**/*.{yml,yaml}",
+							["http://json.schemastore.org/prettierrc"] = ".prettierrc.{yml,yaml}",
+							["http://json.schemastore.org/kustomization"] = "kustomization.{yml,yaml}",
+							["http://json.schemastore.org/chart"] = "Chart.{yml,yaml}",
+							["http://json.schemastore.org/circleciconfig"] = ".circleci/**/*.{yml,yaml}",
+							["https://raw.githubusercontent.com/docker/compose/master/compose/config/compose_spec.json"] = "docker-compose*.{yml,yaml}",
+						},
+					},
+				},
+			})
 			lspconfig.eslint.setup({
 				--- ...
 				on_attach = function(client, bufnr)
@@ -186,8 +209,14 @@ return {
 					},
 				},
 				filetypes = { "cs", "vb", "csproj", "sln", "slnx", "props", "csx" },
+				-- handlers = {
+				-- 	["textDocument/definition"] = require("omnisharp_extended").handler,
+				-- },
 				handlers = {
-					["textDocument/definition"] = require("omnisharp_extended").handler,
+					["textDocument/definition"] = require("omnisharp_extended").definition_handler,
+					["textDocument/typeDefinition"] = require("omnisharp_extended").type_definition_handler,
+					["textDocument/references"] = require("omnisharp_extended").references_handler,
+					["textDocument/implementation"] = require("omnisharp_extended").implementation_handler,
 				},
 			})
 		end,

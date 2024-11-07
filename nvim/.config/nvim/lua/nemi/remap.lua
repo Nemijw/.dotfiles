@@ -25,45 +25,27 @@ set("n", "n", "nzzzv")
 set("n", "N", "Nzzzv")
 --Semicolon at end and back to previous location.
 set("n", "<leader>;", "mzA;<C-c>`z")
---normal movement in insert
--- set("i", "<C-h>", "<C-o>h")
--- set("i", "<C-h>", "<Left>")
--- set("i", "<C-j>", "<Down>")
--- set("i", "<C-k>", "<Up>")
--- set("i", "<C-l>", "<Right>")
--- set("i", "<C-w>", "<C-o>w")
--- set("i", "<C-b>", "<C-o>b")
--- set("i", "<C-d>", "<C-o>diw")
---Switch window with ctrl-h and ctrl-l
--- set("n", "<C-h>", "<C-w>W")
--- set("n", "<C-l>", "<C-w>w")
---enter changes current word.
--- set("n", "<cr>", "ciw")
+vim.keymap.set("n", "<leader>mD", function()
+	-- Delete all marks in the current buffer
+	vim.cmd("delmarks!")
+	print("All marks deleted.")
+end, { desc = "[P]Delete all marks" })
+
+vim.keymap.set("n", "<leader>fp", function()
+	local filePath = vim.fn.expand("%:~")             -- Gets the file path relative to the home directory
+	vim.fn.setreg("+", filePath)                      -- Copy the file path to the clipboard register
+	print("File path copied to clipboard: " .. filePath) -- Optional: print message to confirm
+end, { desc = "[P]Copy file path to clipboard" })
 
 --scroll right<>left
 set("n", "<leader>zl", "zL")
 set("n", "<leader>zh", "zH")
---set("n", "<leader>vwm", function()
---	require("vim-with-me").StartVimWithMe()
---end)
---set("n", "<leader>svwm", function()
---	require("vim-with-me").StopVimWithMe()
---end)
-
 -- greatest remap ever
 -- set("x", "<leader>p", [["*P]])
 set("x", "<leader>p", '"_dP')
 
--- next greatest remap ever : asbjornHaland
-
 set({ "n", "v" }, "<leader>y", '"+y')
 set("n", "<leader>Y", '"+y')
-
---copy to clipboard windows.
--- set({ "n", "v" }, "<leader>y", [["*y]])
--- set("n", "<leader>Y", [["*Y]])
-
---set("n", "<leader>yp", "<cmd>let @+ = expand("")<CR>")
 
 set({ "n", "v" }, "<leader>d", [["_d]])
 
@@ -75,18 +57,9 @@ set("i", "jk", "<Esc>")
 
 set("n", "<leader>Q", "<nop>")
 --set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
--- set("n", "<leader>f", vim.lsp.buf.format)
-
--- set("n", "<C-k>", "<cmd>cnext<CR>zz")
--- set("n", "<C-j>", "<cmd>cprev<CR>zz")
--- set("n", "<leader>k", "<cmd>lnext<CR>zz")
--- set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 set("n", "<leader>rw", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
-
---set("n", "<leader>vpp", "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/theprimeagen/packer.lua<CR>")
---set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>")
 
 set("n", "<leader><leader>", function()
 	vim.cmd("so")
@@ -100,7 +73,6 @@ set("n", "<F6>", function()
 end)
 
 set("n", "<leader>va", "ggVG")
---set("n", "<C-q>", "i<C-r>0<C-c>")
 
 vim.api.nvim_set_keymap("n", "<leader>rmc", ":'<,'>s/\\/\\/\\s*//<CR>", { noremap = true })
 

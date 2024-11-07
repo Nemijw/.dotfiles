@@ -27,7 +27,11 @@ return {
 					},
 					mappings = {
 						i = { ["<c-t>"] = open_with_trouble },
-						n = { ["<c-t>"] = open_with_trouble },
+						n = {
+							["<c-t>"] = open_with_trouble,
+							["x"] = require("telescope.actions").delete_buffer,
+							["q"] = require("telescope.actions").close,
+						},
 					},
 				},
 				pickers = {
@@ -46,6 +50,12 @@ return {
 
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<leader>pf", builtin.find_files, {})
+			vim.api.nvim_set_keymap(
+				"n",
+				"<leader>pF",
+				"<cmd>lua require('telescope.builtin').find_files({ cwd = vim.fn.expand('~') })<CR>",
+				{ noremap = true, silent = true }
+			)
 			--vim.keymap.set("n", "<leader>po", builtin.current_buffer_fuzzy_find, {})
 			vim.keymap.set("n", "<leader>/", function()
 				-- You can pass additional configuration to telescope to change theme, layout, etc.
@@ -53,23 +63,37 @@ return {
 					winblend = 10,
 					previewer = false,
 				}))
-			end, { desc = "[/] Fuzzily search in current buffer" })
-			vim.keymap.set("n", "<C-p>", builtin.git_files, {})
+			end, { desc = "[P] Fuzzily search in current buffer" })
+
+			vim.keymap.set("n", "<C-p>", builtin.git_files, { desc = "[P] Fuzzily search in git files" })
 			vim.keymap.set("n", "<leader>ps", function()
 				builtin.grep_string({ search = vim.fn.input("Grep > ") })
-			end)
+			end, { desc = "[P] Fuzzily search for word in files" })
+
 			vim.keymap.set("n", "<leader>pws", function()
 				local word = vim.fn.expand("<cword>")
 				builtin.grep_string({ search = word })
-			end)
+			end, { desc = "[P] Fuzzily search for current word" })
+
 			vim.keymap.set("n", "<leader>pWs", function()
 				local word = vim.fn.expand("<cWORD>")
 				builtin.grep_string({ search = word })
 			end)
+
 			require("nvim-treesitter.install").prefer_git = false
 			vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
-			vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
+			-- vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
+			vim.keymap.set(
+				"n",
+				"<leader>fb",
+				-- Notice that I start it in normal mode to navigate similarly to bufexplorer,
+				-- the ivy theme is also similar to bufexplorer and tmux sessions
+				"<cmd>Telescope buffers sort_mru=true sort_lastused=true initial_mode=normal theme=ivy<cr>",
+				{ desc = "[P]Open telescope buffers" }
+			)
+
 			vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
+			vim.keymap.set("n", "<leader>fk", "<CMD>Telescope keymaps<CR>")
 			vim.keymap.set("n", "<leader>fs", builtin.lsp_document_symbols, {})
 			--vim.api.nvim_set_keymap("n", "<leader>dd", "<cmd>Telescope diagnostics<CR>", { noremap = true, silent = true })
 
@@ -80,6 +104,29 @@ return {
 			vim.keymap.set("n", "<leader>ds", function()
 				require("telescope.builtin").diagnostics({})
 			end)
+
+			vim.keymap.set("n", "<leader><space>", "<cmd>e #<cr>", { desc = "Alternate buffer" })
+
+			vim.keymap.set(
+				"n",
+				"<leader>tl",
+				"<cmd>TodoTelescope keywords=TODO<cr>",
+				{ desc = "[P]TODO list (Telescope)" }
+			)
+
+			vim.keymap.set(
+				"n",
+				"<leader>ta",
+				"<cmd>TodoTelescope keywords=PERF,HACK,TODO,NOTE,FIX<cr>",
+				{ desc = "[P]TODO list ALL (Telescope)" }
+			)
+
+			vim.keymap.set(
+				"n",
+				"<leader>cn",
+				"<cmd>:Telescope find_files cwd=~/.config/nvim<cr>",
+				{ desc = "[P]Fuzzily search in ~/.config/nvim (Telescope)" }
+			)
 
 			require("neoclip").setup()
 			vim.api.nvim_set_keymap("n", "<leader>pp", "<cmd>Telescope neoclip<CR>", { noremap = true, silent = true })
