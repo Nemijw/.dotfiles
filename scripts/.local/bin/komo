@@ -9,7 +9,7 @@ if [ $? -eq 0 ]; then
 else
     # $komo start --whkd
     if [ -n "$@" ] && [ "$@" == 'h' ]; then
-        $komo start -c 'C:\Users\nuq686\komorebih.json' --ahk
+        $komo start -c 'C:\Users\nuq686\komorebih.json' --ahk --bar
     else
         $komo start --ahk
     fi

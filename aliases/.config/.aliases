@@ -50,6 +50,8 @@ alias start_cs='start $cisservice.sln'
 alias start_all='start_at && start_cs && vim_at'
 alias sln='start *.sln'
 
+alias fdpackage='cat $(fd '.csproj') | grep PackageReference'
+
 alias vimf='nvim $(fzf)'
 alias vim_config='cd ~/.config/nvim/ && vim .'
 alias .bashrc='vim $ZSH_CUSTOM/alias.zsh'

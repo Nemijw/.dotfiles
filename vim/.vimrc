@@ -10,8 +10,8 @@ set smartindent
 
 set nowrap
 
-set swapfile
-set backup
+set noswapfile
+set nobackup
 
 set scrolloff =8
 set signcolumn ="yes"
