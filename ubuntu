@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 if [[ -z $STOW_FOLDERS ]]; then
-    STOW_FOLDERS="bat aliases fzf nvim lazygit zsh tmux scripts git atac"
+    STOW_FOLDERS="bat aliases fzf nvim lazygit zsh tmux scripts git atac ranger"
 fi
 
 if [[ -z $DOTFILES ]]; then

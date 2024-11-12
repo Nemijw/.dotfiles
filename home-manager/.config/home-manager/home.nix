@@ -24,11 +24,12 @@
         atac
         firefox
         sshs
-	    less
+        stow
+        less
         xsel
         cargo
-	    jq
-	    htop-vim
+	jq
+	htop-vim
         fzf
         zsh 
         zsh-fzf-tab
