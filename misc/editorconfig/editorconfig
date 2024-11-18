@@ -29,6 +29,7 @@ dotnet_diagnostic.CA1309.severity = none
 ## No more Make Static Infos
 dotnet_diagnostic.CA1822.severity = none
 
+dotnet_diagnostic.ide0058.severity = none
 ### Logger warnings
 dotnet_diagnostic.CA2254.severity = none
 dotnet_diagnostic.CA2253.severity = none

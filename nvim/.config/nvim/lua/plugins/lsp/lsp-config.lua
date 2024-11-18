@@ -36,6 +36,32 @@ return {
 				},
 			})
 
+			-- Specify how the border looks like
+			local border = {
+				{ "┌", "FloatBorder" },
+				{ "─", "FloatBorder" },
+				{ "┐", "FloatBorder" },
+				{ "│", "FloatBorder" },
+				{ "┘", "FloatBorder" },
+				{ "─", "FloatBorder" },
+				{ "└", "FloatBorder" },
+				{ "│", "FloatBorder" },
+			}
+
+			-- Add the border on hover and on signature help popup window
+			local handlers = {
+				["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+				["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+			}
+
+			-- Add border to the diagnostic popup window
+			vim.diagnostic.config({
+				virtual_text = {
+					prefix = "■ ", -- Could be '●', '▎', 'x', '■', , 
+				},
+				float = { border = border },
+			})
+
 			vim.keymap.set("n", "<leader>vd", function()
 				vim.diagnostic.open_float()
 			end)
@@ -123,6 +149,7 @@ return {
 			local lspconfig = require("lspconfig")
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
+				handlers = handlers,
 				settings = {
 					Lua = {
 						completion = {
@@ -131,11 +158,23 @@ return {
 					},
 				},
 			})
-			lspconfig.ts_ls.setup({})
-			lspconfig.marksman.setup({})
-			lspconfig.gopls.setup({})
+			lspconfig.ts_ls.setup({
+				capabilities = capabilities,
+				handlers = handlers,
+			})
+			lspconfig.marksman.setup({
+
+				capabilities = capabilities,
+				handlers = handlers,
+			})
+			lspconfig.gopls.setup({
+
+				capabilities = capabilities,
+				handlers = handlers,
+			})
 			lspconfig.yamlls.setup({
 				capabilities = capabilities,
+				handlers = handlers,
 				settings = {
 					yaml = {
 						validate = true,
@@ -213,6 +252,8 @@ return {
 				-- 	["textDocument/definition"] = require("omnisharp_extended").handler,
 				-- },
 				handlers = {
+					["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+					["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
 					["textDocument/definition"] = require("omnisharp_extended").definition_handler,
 					["textDocument/typeDefinition"] = require("omnisharp_extended").type_definition_handler,
 					["textDocument/references"] = require("omnisharp_extended").references_handler,
